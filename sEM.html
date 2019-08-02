@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+     <head>
+       <script type="text/javascript" src="t.js">
+       
+          
+      </script>
+       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body style="background-image:url(bt1.jpg); background-repeat: no-repeat">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+     setKey('42bf4c28-1b58-4c8c-9176-b11317cbd76d','BOLT1116500');
+	 
+     console.log("hi");
+        function a_on(){
+             
+              digitalWrite(4,'HIGH');
+			  setTimeout(clos,300000);
+          }
+          function clos(){
+              
+              digitalWrite(4,'LOW');
+          }
+google.charts.load('current', {'packages':['table']});
+     
+var temp=[];
+var lint=[];
+var cur=[];
+var vol=[];
+var pow=[];
+var c1=0;
+var times=[];
+var dates=[];
+		  function r(){
+		  
+		  serialBegin(9600);
+		  serialWrite("GetAnalogData");
+		  serialRead(10,"Status");
+		var d= new Date();
+var h=d.getHours();
+var m=d.getMinutes();
+var se=d.getSeconds();
+var tse=h+":"+m+":"+se;//Get Present Time
+var ds = d.getDate();
+  var m = d.getMonth();
+  var ys=d.getFullYear();
+  var y=ys-2000;
+  var date=ds+"-"+(m+1)+"-"+y;//Get Present Date
+//console.log(intensity);
+//console.log(tempa);
+//console.log(current);
+//console.log(voltage);
+var t=tempa.toString();
+var l=(intensity.toFixed(0)).toString();
+var c=(current.toFixed(2)).toString();
+var v=(voltage.toFixed(2)).toString();
+var p=(power.toFixed(2)).toString();
+console.log("hi");
+temp.push(t);
+
+times.push(tse);
+dates.push(date);
+lint.push(l);
+cur.push(c);
+vol.push(v);
+pow.push(p);
+c1++;
+console.log(c1);
+setTimeout(drawTable,10000);
+		  }
+		  function turnon()
+		  {console.log("o");
+		  serialWrite("Actuatoron");
+		  }
+		  function turnoff()
+		  {console.log("of");
+		  serialWrite("Actuatoroff");
+		  }
+function drawTable() {
+        var data = new google.visualization.DataTable();
+ data.addColumn('string', 'Date');
+        data.addColumn('string', 'Time');
+        data.addColumn('string', 'Temperature(°C)');
+data.addColumn('string', 'Light Intensity');
+data.addColumn('string', 'Voltage(V)');
+       data.addColumn('string', 'Current(A)');
+data.addColumn('string', 'Power(W)');
+console.log(c1);
+for(var i=0;i<c1;i++){
+data.addRow([dates[i],times[i],temp[i],lint[i],vol[i],cur[i],pow[i]]);}
+
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '50%', height: '50%'});
+      }
+    </script>
+	    
+  
+
+
+    <h1 style="text-align:center;font-size:40px;color:white;padding:10px;padding-top:40px">Solar Energy Monitoring & Controlling System</h1>  
+	<div style="padding-left:80px;padding-right:40px;padding-top:50px">
+	<div class="box"><b id="temp_data" style="font-size:36px">44</b>&deg;C<br>Temperature</div>
+	<div class="box"><b id="light_data" style="font-size:36px">400</b>&ensp;LX<br>Light Intensity</div>
+	<div class="box"><b id="current_data" style="font-size:36px">2</b>&ensp;A<br>Current<br></div>
+	<div class="box"><b id="voltage_data" style="font-size:36px">35</b>&ensp;V<br>Voltage<br></div>
+	<div class="box"><b id="power_data" style="font-size:36px">70</b>&ensp;W<br>Power<br></div>
+	<div class="box"><b id="power_data" style="font-size:36px">ON</b><br>Acutator<br></div>
+	
+	</div>
+	<br><br><br><br><br><br>
+   <p style ="color:white" id="Status"></p><br>
+<div class="btn-group" role="group">
+<div style="padding-left:70px">	 <button class="btn btn-primary btn-lg" onclick="a_on()">Turn ON</button></div>
+<div style="padding-left:70px">	 <button class="btn btn-primary btn-lg" onclick="clos()">Turn OFF</button></div></div>
+<br><br>
+<div style="padding-left:70px">	 <button class="btn btn-success btn-lg" onclick="setInterval(r,20000)">Get Data</button><br></div><br>
+
+<div style="padding-left:70px">
+<button class="btn btn-success btn-lg" onclick="drawTable()">Plot Data</button></div><br>
+ <div style="padding-top:100px; padding-left:100px; width:100%" id="table_div"></div>
+
+
+    
+	<style>
+	
+	div.box{
+	color:white;
+	font-size:22px;
+	box-sizing: border-box;
+  width:180px;
+  padding-left:15px;
+  padding-top:5px;
+  padding-bottom:2px;
+  border: 5px solid red;
+  float: left;
+height:100px;
+
+  }
+div.box1{
+	color:white;
+	font-size:22px;
+	box-sizing: border-box;
+  width:150px;
+  padding-left:15px;
+  padding-top:5px;
+  padding-bottom:2px;
+  border: 5px solid red;
+  float: left;
+height:100px;
+
+  }
+  #lod{
+  position:fix;
+  width:20%;
+  }
+button.btn1{
+color:white;
+background-color:blue;
+border:1px solid lightgray;
+border-radius:1px;
+font-size:14px;
+padding:8px;
+width:190px;
+}
+  </style>
+	
+</body>
+</html>

@@ -1,0 +1,41 @@
+<body style="background-image:url(sw.jpeg); background-repeat: no-repeat">
+<div style="text-align:center;padding-top:40px; padding-left:100px;color:red; font-size:36px"><b> Solar Energy Monitoring & Controlling System</b></div><br><br>
+<div style="padding-left:60px; color:deeppink; font-size:24px">Please Sign In</div><br>
+   <!-- Name -->
+  <div style="padding-left:60px">  <input type="text" id="user" style="height:30px" placeholder="Username"></div><br>
+
+    <!-- Password-->
+  <div style="padding-left:60px">  <input type="password" id="pwd"  placeholder="Password" style="height:30px"></div>
+<p style="padding-left:60px;color: deeppink; font-size:20px" id="eror"></p>
+    <!-- Sign in button -->
+<div style="padding-left:60px">  <button id="btn" onclick="my()">Sign In</button></div>
+
+
+
+
+<script>
+function my()
+{
+
+var a=document.getElementById("user").value;
+var b=document.getElementById("pwd").value;
+if(a=='Sahil'&b=='s@03')
+window.open("sEM.html","_self");
+else
+document.getElementById("eror").innerHTML="Username or Password Didn't Match";
+}
+</script>
+<style>
+
+#btn{
+color:white;
+background-color:DodgerBlue;
+border:1px solid lightgray;
+border-radius:1px;
+font-size:14px;
+padding:8px;
+width:190px;
+}
+
+</style>
+</body>
